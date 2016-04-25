@@ -14,26 +14,33 @@ function grocery_list() {
     $groceries = array(
         'eggs' => array(
             'price' => 1.99,
-            'quantity' => 12,
+            'quantity' => array(
+              'number' => 12,
+            ),
         ),
         'bread' => array(
             'price' => 2.99,
-            'quantity' => 1,
+            'quantity' => array(
+              'number' => 1,
+            ),
         ),
         'chocolate' => array(
             'price' => 4.99,
-            'quantity' => 3,
+            'quantity' => array(
+              'number' => 3,
+            ),
         ),
     );
     // var_dump($groceries);
     $list = "";
+    $grocery_total = 0;
 
     foreach($groceries as $key => $grocery) {
-        $total = $grocery['price']*$grocery['quantity'];
-        // var_dump($total);
-
-        $list .= "<p>$grocery[quantity] $key at $grocery[price]/each = $total</p>";
-
+        $total = $grocery['price']*$grocery['quantity']['number'];
+        $grocery_total += $total;
+        $list .= "<p>" . $grocery['quantity']['number'] . " " .  $key . " at $" . $grocery['price'] . "/each = $"  . $total . "</p>";
     }
+
+    $list .= "<h3> Total: $" . $grocery_total . "</h3>";
     return $list;
 }
