@@ -21,6 +21,7 @@ $favorites = array(
 
 function favorites_menu() {
     global $favorites;
+    variable_set('favorite_stuff', $favorites);
     $items = array();
     foreach($favorites as $key => $favorite){
         $items['favorites/' . $key] = array(
@@ -41,8 +42,3 @@ function show_favorite($favorite) {
     }
     return $favorites_list;
 }
-
-// variable_set('favorite_stuff', $favorites);
-// $entire_favorites_array = variable_get('favorite_stuff');
-// $movies = $entire_favorites_array['movies'];
-// var_dump($movies);

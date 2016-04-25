@@ -16,6 +16,5 @@ function cards_menu() {
 }
 
 function friend_message($friend) {
-    var_dump($friend);
     return 'This is another test, ' . $friend;
 }
