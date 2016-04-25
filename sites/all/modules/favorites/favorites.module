@@ -1,0 +1,48 @@
+<?php
+
+global $favorites;
+$favorites = array(
+    'Movies' => array(
+        'Jungle Book',
+        'Pacific Rim',
+        'Civil War',
+    ),
+    'Books' => array(
+        'Where The Red Fern Grows',
+        'Never Go Back',
+        'Making Habits Breaking Habits',
+    ),
+    'Songs' => array(
+        'Hello',
+        'Play That Funky Music',
+        'Purple Rain',
+    ),
+);
+
+function favorites_menu() {
+    global $favorites;
+    $items = array();
+    foreach($favorites as $key => $favorite){
+        $items['favorites/' . $key] = array(
+            'title' => $key,
+            'page callback' => 'show_favorite',
+            'page arguments' => array($favorite),
+            'access callback' => TRUE,
+            'type' => MENU_NORMAL_ITEM,
+        );
+    }
+    return $items;
+}
+
+function show_favorite($favorite) {
+    $favorites_list = "";
+    foreach($favorite as $single_favorite) {
+        $favorites_list .= '<h3>' . $single_favorite . '</h3>';
+    }
+    return $favorites_list;
+}
+
+// variable_set('favorite_stuff', $favorites);
+// $entire_favorites_array = variable_get('favorite_stuff');
+// $movies = $entire_favorites_array['movies'];
+// var_dump($movies);
