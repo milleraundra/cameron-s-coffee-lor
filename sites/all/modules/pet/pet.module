@@ -1,0 +1,19 @@
+<?php
+function pet_menu() {
+  $items = array();
+  $items['pet'] = array(
+      'title' => 'My Favorite Pet',
+      'page callback' => 'favorite_pet',
+      'access callback' => TRUE,
+      'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+function favorite_pet() {
+  $path = drupal_get_path('module', 'pet').'/images/bordercollie.jpg';
+  return '
+    <img src='.$path.'>
+    <a href="/about" target="_blank">Read more about border collies</a>
+  ';
+}

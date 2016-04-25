@@ -1,0 +1,5 @@
+name = Pet
+description = Display a page for my favorite pet, past and present.
+package = Epicodus Examples
+core = 7.x
+files[] = pet.module
