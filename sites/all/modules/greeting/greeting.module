@@ -23,3 +23,11 @@ function say_hello() {
 function say_farewell() {
   return '<p>Fare thee well my dear friend!</p>';
 }
+
+function greeting_user_login() {
+  $_GET['destination'] = 'about';
+}
+
+function greeting_user_logout() {
+  $_GET['destination'] = 'farewell';
+}
