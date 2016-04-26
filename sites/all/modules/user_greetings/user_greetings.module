@@ -1,0 +1,90 @@
+<?php
+
+// global $users;
+// $users = array(
+//     'authenticated user',
+//     'moderator',
+//     'administrator',
+// );
+function user_greetings_menu() {
+    $items = array();
+    $items['hello_authenticated'] = array(
+        'title' => "Hello authenticated user!",
+        'page callback' => 'say_hello_authenticated',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    $items['farewell'] = array(
+      'title' => 'Farewell Authenticated!',
+      'page callback' => 'say_farewell_authenticated',
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
+    );
+    $items['hello_administrator'] = array(
+        'title' => "Hello Administrator!",
+        'page callback' => 'say_hello_administrator',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    $items['farewell_administrator'] = array(
+      'title' => 'Farewell Administrator!',
+      'page callback' => 'say_farewell_administrator',
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
+    );
+    $items['hello_moderator'] = array(
+        'title' => "Hello Moderator!",
+        'page callback' => 'say_hello_moderator',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    $items['farewell_moderator'] = array(
+      'title' => 'Farewell Moderator!',
+      'page callback' => 'say_farewell_moderator',
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
+    );
+    return $items;
+}
+
+function say_hello_authenticated() {
+    return '<p>Nice to See You!</p>';
+}
+function say_farewell_authenticated() {
+    return '<p>Come Back Soon!</p>';
+}
+
+function say_hello_administrator(){
+    return '<p>YOU ARE IN CHARGE!</p>';
+}
+function say_farewell_administrator() {
+    return '<p>YOU ARE STILL IN CHARGE!</p>';
+}
+
+function say_hello_moderator(){
+    return '<p>Use your power wisely.</p>';
+}
+function say_farewell_moderator() {
+    return '<p>Thanks for your help!</p>';
+}
+
+function user_greetings_user_login(&$edit, $account) {
+    if(in_array('administrator', $account->roles)){
+        $_GET['destination'] = 'hello_administrator';
+    }elseif(in_array('moderator', $account->roles)){
+        $_GET['destination'] = 'hello_moderator';
+    }else{
+        $_GET['destination'] = 'hello_authenticated';
+    }
+}
+
+function user_greetings_user_logout($account) {
+    if(in_array('administrator', $account->roles)){
+        $_GET['destination'] = 'farewell_administrator';
+    }elseif(in_array('moderator', $account->roles)){
+        $_GET['destination'] = 'farewell_moderator';
+    }else{
+        $_GET['destination'] = 'farewell';
+    }
+
+}

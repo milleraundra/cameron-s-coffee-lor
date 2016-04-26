@@ -1,8 +1,7 @@
 <?php
 
 function comment_buddy_comment_insert() {
-    drupal_get_messages('status');
-    drupal_set_message($message = "Your comment has been added");
+    drupal_set_message($message = "Your comment has been added.");
 }
 
 function comment_buddy_comment_update() {
@@ -11,5 +10,6 @@ function comment_buddy_comment_update() {
 
 function comment_buddy_comment_delete() {
     drupal_set_message($message = "You've eaten your words. Good choice.");
+    $_GET['destination'] = 'about';
 
 }
