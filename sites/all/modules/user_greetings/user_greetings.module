@@ -13,13 +13,15 @@ function user_greetings_menu() {
     foreach ($users as $key => $user) {
         $items['hello_' . $user] = array(
             'title' => "Hello " . $key . "!",
-            'page callback' => 'say_hello_' . $user,
+            'page callback' => 'say_hello',
+            'page arguments' => array($key),
             'access callback' => TRUE,
             'type' => MENU_CALLBACK,
         );
         $items['farewell_' . $user] = array(
           'title' => 'Farewell, ' . $key . '!',
-          'page callback' => 'say_farewell_' . $user,
+          'page callback' => 'say_farewell',
+          'page arguments' => array($key),
           'access callback' => TRUE,
           'type' => MENU_CALLBACK,
         );
@@ -27,23 +29,24 @@ function user_greetings_menu() {
     return $items;
 }
 
-function say_hello_authenticated_user() {
-    return '<p>Nice to See You!</p>';
+function say_hello($user) {
+    if($user == 'administrator') {
+        return '<p>YOU ARE IN CHARGE!</p>';
+    } elseif ($user == 'moderator') {
+        return '<p>Use your power wisely.</p>';
+    } else {
+        return '<p>Nice to See You!</p>';
+    }
 }
-function say_farewell_authenticated_user() {
-    return '<p>Come Back Soon!</p>';
-}
-function say_hello_moderator(){
-    return '<p>Use your power wisely.</p>';
-}
-function say_farewell_moderator() {
-    return '<p>Thanks for your help!</p>';
-}
-function say_hello_administrator(){
-    return '<p>YOU ARE IN CHARGE!</p>';
-}
-function say_farewell_administrator() {
-    return '<p>YOU ARE STILL IN CHARGE!</p>';
+
+function say_farewell($user) {
+    if($user == 'administrator') {
+        return '<p>YOU ARE STILL IN CHARGE!</p>';
+    } elseif ($user == 'moderator') {
+        return '<p>Thanks for your help!</p>';
+    } else {
+        return '<p>Come Back Soon!</p>';
+    }
 }
 
 function user_greetings_user_login(&$edit, $account) {
