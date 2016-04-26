@@ -56,6 +56,7 @@ function say_farewell($user) {
 // if(in_array('administrator', $user->roles)){
 
 function user_greetings_user_login(&$edit, $account) {
+    // global $user;
 
     if(in_array('administrator', $account->roles)){
         $_GET['destination'] = 'hello_administrator';
