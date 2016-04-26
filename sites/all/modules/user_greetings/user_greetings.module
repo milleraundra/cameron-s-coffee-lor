@@ -49,7 +49,14 @@ function say_farewell($user) {
     }
 }
 
+//DOES NOT ACCOUNT FOR PASSWORD RESET
+
+//INSTEAD OF USING $account
+// global $user;
+// if(in_array('administrator', $user->roles)){
+
 function user_greetings_user_login(&$edit, $account) {
+
     if(in_array('administrator', $account->roles)){
         $_GET['destination'] = 'hello_administrator';
     }elseif(in_array('moderator', $account->roles)){
