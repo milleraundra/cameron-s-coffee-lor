@@ -13,6 +13,7 @@ function todotoday_field_default_field_instances() {
   // Exported field_instance: 'node-todotoday_task-field_due_date'.
   $field_instances['node-todotoday_task-field_due_date'] = array(
     'bundle' => 'todotoday_task',
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -58,7 +59,7 @@ function todotoday_field_default_field_instances() {
         'text_parts' => array(),
         'year_range' => '-3:+3',
       ),
-      'type' => 'date_popup',
+      'type' => 'date_select',
       'weight' => -2,
     ),
   );
