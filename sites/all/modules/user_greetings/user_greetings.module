@@ -1,71 +1,49 @@
 <?php
 
-// global $users;
-// $users = array(
-//     'authenticated user',
-//     'moderator',
-//     'administrator',
-// );
+global $users;
+$users = array(
+    'authenticated user' => 'authenticated_user',
+    'moderator' => 'moderator',
+    'administrator' => 'administrator',
+);
+
 function user_greetings_menu() {
     $items = array();
-    $items['hello_authenticated'] = array(
-        'title' => "Hello authenticated user!",
-        'page callback' => 'say_hello_authenticated',
-        'access callback' => TRUE,
-        'type' => MENU_CALLBACK,
-    );
-    $items['farewell'] = array(
-      'title' => 'Farewell Authenticated!',
-      'page callback' => 'say_farewell_authenticated',
-      'access callback' => TRUE,
-      'type' => MENU_CALLBACK,
-    );
-    $items['hello_administrator'] = array(
-        'title' => "Hello Administrator!",
-        'page callback' => 'say_hello_administrator',
-        'access callback' => TRUE,
-        'type' => MENU_CALLBACK,
-    );
-    $items['farewell_administrator'] = array(
-      'title' => 'Farewell Administrator!',
-      'page callback' => 'say_farewell_administrator',
-      'access callback' => TRUE,
-      'type' => MENU_CALLBACK,
-    );
-    $items['hello_moderator'] = array(
-        'title' => "Hello Moderator!",
-        'page callback' => 'say_hello_moderator',
-        'access callback' => TRUE,
-        'type' => MENU_CALLBACK,
-    );
-    $items['farewell_moderator'] = array(
-      'title' => 'Farewell Moderator!',
-      'page callback' => 'say_farewell_moderator',
-      'access callback' => TRUE,
-      'type' => MENU_CALLBACK,
-    );
+    global $users;
+    foreach ($users as $key => $user) {
+        $items['hello_' . $user] = array(
+            'title' => "Hello " . $key . "!",
+            'page callback' => 'say_hello_' . $user,
+            'access callback' => TRUE,
+            'type' => MENU_CALLBACK,
+        );
+        $items['farewell_' . $user] = array(
+          'title' => 'Farewell, ' . $key . '!',
+          'page callback' => 'say_farewell_' . $user,
+          'access callback' => TRUE,
+          'type' => MENU_CALLBACK,
+        );
+    }
     return $items;
 }
 
-function say_hello_authenticated() {
+function say_hello_authenticated_user() {
     return '<p>Nice to See You!</p>';
 }
-function say_farewell_authenticated() {
+function say_farewell_authenticated_user() {
     return '<p>Come Back Soon!</p>';
 }
-
-function say_hello_administrator(){
-    return '<p>YOU ARE IN CHARGE!</p>';
-}
-function say_farewell_administrator() {
-    return '<p>YOU ARE STILL IN CHARGE!</p>';
-}
-
 function say_hello_moderator(){
     return '<p>Use your power wisely.</p>';
 }
 function say_farewell_moderator() {
     return '<p>Thanks for your help!</p>';
+}
+function say_hello_administrator(){
+    return '<p>YOU ARE IN CHARGE!</p>';
+}
+function say_farewell_administrator() {
+    return '<p>YOU ARE STILL IN CHARGE!</p>';
 }
 
 function user_greetings_user_login(&$edit, $account) {
@@ -74,7 +52,7 @@ function user_greetings_user_login(&$edit, $account) {
     }elseif(in_array('moderator', $account->roles)){
         $_GET['destination'] = 'hello_moderator';
     }else{
-        $_GET['destination'] = 'hello_authenticated';
+        $_GET['destination'] = 'hello_authenticated_user';
     }
 }
 
@@ -84,7 +62,6 @@ function user_greetings_user_logout($account) {
     }elseif(in_array('moderator', $account->roles)){
         $_GET['destination'] = 'farewell_moderator';
     }else{
-        $_GET['destination'] = 'farewell';
+        $_GET['destination'] = 'farewell_authenticated_user';
     }
-
 }
